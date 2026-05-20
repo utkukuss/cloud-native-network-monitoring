@@ -1,0 +1,22 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  receiver: demo-console
+  group_by:
+    - alertname
+    - severity
+  group_wait: 5s
+  group_interval: 20s
+  repeat_interval: 2m
+
+receivers:
+  - name: demo-console
+
+inhibit_rules:
+  - source_matchers:
+      - severity = critical
+    target_matchers:
+      - severity = warning
+    equal:
+      - component

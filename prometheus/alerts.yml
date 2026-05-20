@@ -1,0 +1,42 @@
+groups:
+  - name: network-monitoring-alerts
+    rules:
+      - alert: HighNetworkLatency
+        expr: network_latency_ms > 150
+        for: 15s
+        labels:
+          severity: warning
+          component: network
+        annotations:
+          summary: "Network latency is high"
+          description: "Latency is above 150 ms for more than 15 seconds. Current value: {{ $value }} ms."
+
+      - alert: HighPacketLoss
+        expr: network_packet_loss_percent > 5
+        for: 15s
+        labels:
+          severity: critical
+          component: network
+        annotations:
+          summary: "Packet loss is critical"
+          description: "Packet loss is above 5 percent for more than 15 seconds. Current value: {{ $value }} percent."
+
+      - alert: HighBandwidthUsage
+        expr: network_bandwidth_mbps > 800
+        for: 15s
+        labels:
+          severity: critical
+          component: network
+        annotations:
+          summary: "Bandwidth usage is very high"
+          description: "Bandwidth usage exceeded 800 Mbps for more than 15 seconds. Current value: {{ $value }} Mbps."
+
+      - alert: TooManyActiveConnections
+        expr: network_active_connections > 600
+        for: 15s
+        labels:
+          severity: warning
+          component: network
+        annotations:
+          summary: "Too many active connections"
+          description: "Active connection count exceeded 600 for more than 15 seconds. Current value: {{ $value }}."
